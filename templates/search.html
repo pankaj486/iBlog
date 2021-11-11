@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    {% for post in posts %}
+    <div class="col-sm-8">
+      <h1>{{post.title}}</h1>
+      <p>{{post.content | safe}}</p>
+      <div class="mt20 mb20">
+        <a class="btn btn-primary" href="/blog/{{post.url}}"> Read More... </a>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <img src="{{post.image.url}}" class="img-thumbnail mt20 mb20" alt="">
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}

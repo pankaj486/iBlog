@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-10">
+      <h1 class="mt20 mb20">{{post.title}}</h1>
+      <p>{{post.cat.title}}</p>
+      <img src="{{post.image.url}}" class="image-sytle2 mt20 mb20" alt="">
+      <p class="mt20 mb20">{{post.content | safe}}</p>
+    </div>
+    <div class="col-2 post-class">
+      {% for cat in cats %}
+      <div class="card item" style="width: 18rem;">
+        <img src="{{cat.image.url}}" class="card-img-top img-thumbnail" alt="...">
+        <div class="card-body">
+          <div class="card-title">
+            <h4 class="card-text">{{cat.title}}</h4>
+          </div>
+          <p class="card-text">{{cat.description |truncatechars:100}}</p>
+          <a href="/category/{{cat.url}}" class="btn btn-primary">View</a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}

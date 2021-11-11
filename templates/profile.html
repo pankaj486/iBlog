@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col-2">
+      <div class="content-section">
+        <div class="media">
+          <img class="rounded-circle account-img" src="{{user.profile.profile_image.url}}" alt="">
+          <div class="media-body">
+            <h2 class="account-heading">{{user.username}}</h2>
+            <p class="text-secondary">{{user.email}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+
+  <div class="row">
+    <div class="alert alert-info mt20" role="alert">
+        <a href="{% url 'addpost' %}" class="btn btn-success">Add New Post</a>
+    </div>
+    <div class="col mt20">
+      {% for post in posts %}
+      <div class="row">
+        <div class="col-sm-8">
+          <h1>{{post.title}}</h1>
+          <p>{{post.content | safe | truncatechars:1000}}</p>
+          <div class="mt20 mb20">
+            <a class="btn btn-primary" href="/blog/{{post.url}}"> Read More... </a>
+            <a href="{% url 'updatepost' post.post_id %}" class="btn btn-warning">Edit Post</a>
+            <p>
+            <form class="" action="{% url 'deletedata' post.post_id %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" class="btn btn-danger btn-lg" value="Delete">
+            </form>
+            </p>
+
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img src="{{post.image.url}}" class="img-thumbnail mt20 mb20" alt="">
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <h3 class="alert alert-info mt20"> Create Profile</h3>
+    <div class="col">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{profile_form | crispy}}
+        <input type="submit" class="btn btn-success mt20" value="Submit">
+      </form>
+    </div>
+  </div>
+</div>
+
+  {% endblock content %}

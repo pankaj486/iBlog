@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container border-bottom">
+  <div class="row">
+    {% for cat in cats %}
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12">
+      <div class="card item" style="width: 18rem;">
+        <img src="{{cat.image.url}}" class="card-img-top img-thumbnail" alt="...">
+        <div class="card-body">
+          <div class="card-title">
+            <h4 class="card-text">{{cat.title}}</h4>
+          </div>
+          <p class="card-text">{{cat.description |truncatechars:100}}</p>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="container ">
+
+  <div class="row">
+    <div class="alert alert-info mt20" role="alert">
+      <h3 class="mt20">Letest Posts
+        <a href="{% url 'addpost' %}" class="btn btn-success">Add New Post</a>
+      </h3>
+    </div>
+    <div class="col mt20">
+      {% for post in posts %}
+      <div class="row border-bottom">
+        <div class="col-sm-8">
+          <h1 class="mt20">{{post.title}}</h1>
+          <p>{{post.content | safe | truncatechars:1000}}</p>
+          <div class="mt20 mb20">
+            <a class="btn btn-primary" href="/blog/{{post.url}}"> Read More... </a>
+            <a href="{% url 'updatepost' post.post_id %}" class="btn btn-warning">Edit Post</a>
+            <a href="{% url 'comment' post.post_id %}" class="btn btn-info">Add Comment</a>
+            <p>
+            <form class="" action="{% url 'deletedata' post.post_id %}" method="POST">
+              {% csrf_token %}
+              <input type="submit" class="btn btn-danger btn-lg" value="Delete">
+            </form>
+            </p>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <img src="{{post.image.url}}" class="img-thumbnail mt20 mb20" alt="">
+        </div>
+        <div class="d-flex flex-row">
+          <form action="{% url 'like' post.post_id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{request.path}}">
+            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+              <i class="far fa-thumbs-up"> <span>{{post.likes.all.count}}</span></i>
+            </button>
+          </form>
+          <form action="{% url 'dislike' post.post_id %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{request.path}}">
+            <button style="background-color: transparent; border: none; box-shadow: none;" type="submit">
+              <i class="far fa-thumbs-down"> <span>{{post.dislikes.all.count}}</span></i>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="mt20 mb20">{{post.title}}</h1>
+      <p>{{post.cat.title}}</p>
+      <img src="{{post.image.url}}" class="image-sytle mt20 mb20" alt="">
+      <p class="mt20 mb20">{{post.content | safe}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="container mt20 alert alert-success">
+  <div class="row">
+    <div class="col">
+      <div class="title-box-d">
+        <h3 class="alert alert-dark">Comments ({{comments_count}})</h3>
+      </div>
+      {% for comment in comments %}
+      <div class="box-comments">
+        <ul class="list-comments">
+          <li>
+            <div class="comment-avatar">
+              <img src="{{user.profile.profile_image.url}}" alt="">
+            </div>
+            <form action="#" method="POST">
+              {% csrf_token %}
+              <div class="comment-details">
+                <h4 class="comment-author">{{comment.user}}</h4>
+                <span>{{comment.posted_at}}</span>
+                <p class="comment-description">
+                  {{comment.comments}}
+                </p>
+              </div>
+            </form>
+          </li>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+
+<div class="container">
+  <div class="row mt-2">
+    <div class="col border-style">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form | crispy}}
+        <br>
+        <input class="btn btn-success mb-2" type="submit" name="" value="Submit">
+      </form>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
