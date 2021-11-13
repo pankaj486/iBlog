@@ -26,9 +26,18 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
     location = models.CharField(max_length=55, null=True, blank=True)
-    profile_image = models.ImageField(null=True, blank=True, upload_to='images/')
+    profile_image = models.ImageField(null=True, blank=True, upload_to='images/', default="My_blog.jpg")
     created = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):
         return f'{self.user.username} Profile'
+
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.profile_image.url
+        except:
+            url = ''
+        return url

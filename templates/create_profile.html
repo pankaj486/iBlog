@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container">
+  <div class="row">
+    <h3 class="alert alert-info mt20"> Create Profile</h3>
+    <div class="col">
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{profile_form | crispy}}
+        <input type="submit" class="btn btn-success mt20" value="Submit">
+      </form>
+    </div>
+  </div>
+</div>
+
+  {% endblock content %}

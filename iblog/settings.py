@@ -32,6 +32,8 @@ INSTALLED_APPS = [
     'accounts',
     'crispy_forms',
     'todo',
+    'api',
+    'rest_framework',
 
 ]
 

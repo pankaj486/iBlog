@@ -68,21 +68,30 @@ def logout(request):
 
 def profile(request):
     user = request.user
-    if request.method == 'POST':
-        profile_form = ProfileForm(request.POST, request.FILES)
-        if profile_form.is_valid():
-            profile_form.save()
-        else:
-            raise ValueError('Please Login with own user profile')
-    else:
-        profile_form = ProfileForm()
     profile = Profile.objects.all()
     posts = Post.objects.filter(user=user)
 
     context = {
         'profile': profile,
-        'profile_form': profile_form,
         'posts': posts,
     }
 
     return render(request, 'profile.html', context)
+
+
+def create_profile(request):
+    if request.method == 'POST':
+        profile_form = ProfileForm(request.POST, request.FILES)
+        try:
+            if profile_form.is_valid():
+                profile_form.save()
+        except Exception as e:
+            return e
+    else:
+        profile_form = ProfileForm()
+
+    context = {
+        'profile_form': profile_form,
+    }
+
+    return render(request, 'create_profile.html', context)

@@ -7,7 +7,7 @@
     <div class="col-2">
       <div class="content-section">
         <div class="media">
-          <img class="rounded-circle account-img" src="{{user.profile.profile_image.url}}" alt="">
+          <img class="rounded-circle account-img" src="{{user.profile.imageURL.url}}" alt="">
           <div class="media-body">
             <h2 class="account-heading">{{user.username}}</h2>
             <p class="text-secondary">{{user.email}}</p>
@@ -52,18 +52,5 @@
   </div>
 </div>
 
-
-<div class="container">
-  <div class="row">
-    <h3 class="alert alert-info mt20"> Create Profile</h3>
-    <div class="col">
-      <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{profile_form | crispy}}
-        <input type="submit" class="btn btn-success mt20" value="Submit">
-      </form>
-    </div>
-  </div>
-</div>
 
   {% endblock content %}
