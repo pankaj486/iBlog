@@ -1,4 +1,8 @@
+.account-img {
+  width: 100px;
+  height: auto;
 
+}
 
 .col-white {
   color: white;
@@ -17,6 +21,11 @@
 }
 
 .image-sytle {
+  height: 45rem;
+  width: 80rem;
+}
+
+.image-sytle2 {
   height: 40rem;
   width: 68rem;
 }

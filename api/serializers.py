@@ -3,7 +3,7 @@ from todo.models import Todo
 
 
 
-class TodoSerializer(serializers.Serializer):
+class TodoSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Todo

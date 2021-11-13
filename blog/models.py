@@ -45,3 +45,12 @@ class PostComment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     comments = models.CharField(max_length=500)
     posted_at = models.DateTimeField(auto_now_add=True)
+
+
+    @property
+    def imageURL(self):
+        try:
+            url = self.profile_image.url
+        except:
+            url = ''
+        return url
